@@ -1,1 +1,38 @@
-<p>register works!</p>
+<div class="register">
+  <h2>Register</h2>
+  <form [formGroup]="form">
+
+    <mat-label class="input-wrapper">
+      Work Email
+      <mat-form-field class="example-full-width input">
+        <input type="email" matInput formControlName="name" placeholder="Ex. pat@example.com">
+      </mat-form-field>
+    </mat-label>
+
+    <mat-label class="input-wrapper">
+      Name Company
+      <mat-form-field class="example-full-width input">
+        <input type="text" matInput formControlName="password" placeholder="gloria">
+      </mat-form-field>
+    </mat-label>
+
+    <mat-label class="input-wrapper">
+      Password
+      <mat-form-field class="example-full-width input">
+        <input type="password" matInput formControlName="password" placeholder="*******">
+      </mat-form-field>
+    </mat-label>
+
+    <mat-label class="input-wrapper">
+      Password repeat
+      <mat-form-field class="example-full-width input">
+        <input type="password" matInput formControlName="password" placeholder="*******">
+      </mat-form-field>
+    </mat-label>
+
+    <button class="button">
+      Submit
+    </button>
+  </form>
+
+</div>

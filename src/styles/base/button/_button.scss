@@ -1,0 +1,21 @@
+@import "../../variables/colors";
+
+.button {
+  background: $blue;
+  cursor: pointer;
+  color: white;
+  border-radius: 10px;
+  padding: 15px 10px;
+  border: 0;
+  font-weight: 600;
+  transition: 0.5s ease;
+
+  &.transparent {
+    background: transparent;
+    border: 2px solid $aqua-grey;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

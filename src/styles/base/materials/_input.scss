@@ -1,0 +1,26 @@
+@import "../../variables/colors";
+
+.input {
+
+  .mat-mdc-text-field-wrapper {
+    border-radius: 15px;
+    border: 2px solid $aqua-grey;
+    background: white !important;
+    transition: 0.5s ease;
+
+    .mat-mdc-form-field-infix {
+      padding: 15px 0;
+      min-height: unset;
+    }
+
+    .mdc-line-ripple {
+      display: none;
+    }
+  }
+}
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

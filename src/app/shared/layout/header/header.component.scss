@@ -1,0 +1,15 @@
+@import "../../../../styles/variables/colors";
+
+.header {
+
+  border-bottom: $aqua-grey 2px solid ;
+
+  &__auth-menu {
+    display: flex;
+
+  }
+
+  .active {
+    color: red;
+  }
+}

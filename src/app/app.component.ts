@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { FooterComponent } from "./shared/layout/footer/footer.component";
 import { HeaderComponent } from "./shared/layout/header/header.component";
 import { MainComponent } from "./shared/layout/main/main.component";
+import { NavBarComponent } from "./shared/layout/nav-bar/nav-bar.component";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { MainComponent } from "./shared/layout/main/main.component";
     HttpClientModule,
     FooterComponent,
     HeaderComponent,
-    MainComponent
+    MainComponent,
+    NavBarComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
