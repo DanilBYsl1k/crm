@@ -11,8 +11,8 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$crm_service-primary: mat.define-palette(mat.$orange-palette, 500, 200, 100);
-$crm_service-accent: mat.define-palette(mat.$pink-palette, 100, 100, 500);
+$crm_service-primary: mat.define-palette(mat.$deep-purple-palette, 500, 200, 100);
+$crm_service-accent: mat.define-palette(mat.$deep-purple-palette, 100, 100, 500);
 
 // The warn palette is optional (defaults to red).
 $crm_service-warn: mat.define-palette(mat.$red-palette);
@@ -32,4 +32,18 @@ $crm_service-theme: mat.define-light-theme((
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include mat.all-component-themes($crm_service-theme);
+$custom-button-palette: mat.define-palette(mat.$blue-palette, 500);
+
+$custom-button: (
+  color: (
+    primary:  mat.define-palette(mat.$orange-palette, 50, 600),
+    accent: mat.get-color-from-palette($custom-button-palette, 50, 600),
+    warn:  mat.get-color-from-palette($custom-button-palette, A700, 600),
+    disabled:  mat.get-color-from-palette($custom-button-palette, 600, 600),
+  ),
+);
+
+html {
+  @include mat.all-component-themes($crm_service-theme);
+  //@include mat.button-theme($custom-button)
+}

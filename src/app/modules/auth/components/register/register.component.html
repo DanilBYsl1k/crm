@@ -1,18 +1,18 @@
 <div class="register">
-  <h2>Register</h2>
-  <form [formGroup]="form">
+  <h2 class="text-center title">Register</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <mat-label class="input-wrapper">
       Work Email
       <mat-form-field class="example-full-width input">
-        <input type="email" matInput formControlName="name" placeholder="Ex. pat@example.com">
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
       </mat-form-field>
     </mat-label>
 
     <mat-label class="input-wrapper">
       Name Company
       <mat-form-field class="example-full-width input">
-        <input type="text" matInput formControlName="password" placeholder="gloria">
+        <input type="text" matInput formControlName="company" placeholder="gloria">
       </mat-form-field>
     </mat-label>
 
@@ -26,11 +26,11 @@
     <mat-label class="input-wrapper">
       Password repeat
       <mat-form-field class="example-full-width input">
-        <input type="password" matInput formControlName="password" placeholder="*******">
+        <input type="password" matInput formControlName="repeatPassword" placeholder="*******">
       </mat-form-field>
     </mat-label>
 
-    <button class="button">
+    <button mat-flat-button [disabled]="form.invalid" class="mat-primary button">
       Submit
     </button>
   </form>

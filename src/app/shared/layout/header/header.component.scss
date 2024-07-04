@@ -2,11 +2,14 @@
 
 .header {
 
-  border-bottom: $aqua-grey 2px solid ;
+  border-bottom: $light-grey 2px solid ;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
 
   &__auth-menu {
     display: flex;
-
   }
 
   .active {

@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
-interface IRegisterForm {
-  name: FormControl<string | null>;
-  email: FormControl<string | null>;
-  password: FormControl<string | null>;
-  repeatPassword: FormControl<string | null>;
-}
+import { IRegisterForm } from "../../../../shared/interface/auth.interface";
+import { ValidationFunctions } from "../../../../shared/validations/validation-functions";
+
 
 @Component({
   selector: 'app-register',
@@ -17,6 +20,7 @@ interface IRegisterForm {
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatButtonModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
@@ -24,15 +28,23 @@ interface IRegisterForm {
 export class RegisterComponent implements OnInit {
   form: FormGroup<IRegisterForm>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: this.fb.control(''),
-      email: this.fb.control(''),
-      password: this.fb.control(''),
-      repeatPassword: this.fb.control(''),
-    });
+        company: this.fb.control('', [ Validators.required ]),
+        email: this.fb.control('', [ Validators.required, Validators.email ]),
+        password: this.fb.control('', [ Validators.required, Validators.min(6) ]),
+        repeatPassword: this.fb.control('', [ Validators.required ]),
+      },
+      {
+        validators: ValidationFunctions.comparePassword('password', 'repeatPassword')
+      }
+    );
   }
 
+  onSubmit(): void {
+    console.log(this.form.value);
+  }
 }

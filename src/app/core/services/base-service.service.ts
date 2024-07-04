@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { environment } from "../environments/environment";
 
 @Injectable({ providedIn: 'root' })
-export class BaseServiceService {
+export class BaseService {
 
-  private domainAPI = 'http://127.0.0.1:8000';
+  private domainAPI = environment.domain;
 
   constructor(private httpClient: HttpClient) {}
 

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
 
-import { IAuthForm } from "../../../../shared/interface/auth.interface";
+import { ILoginForm } from "../../../../shared/interface/auth.interface";
 
 @Component({
   selector: 'app-login',
@@ -13,23 +14,27 @@ import { IAuthForm } from "../../../../shared/interface/auth.interface";
         MatFormField,
         MatInput,
         MatLabel,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatButtonModule
     ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup<IAuthForm>;
+  form: FormGroup<ILoginForm>;
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      name: this.fb.control(''),
       email: this.fb.control(''),
       password: this.fb.control(''),
-      repeatPassword: this.fb.control(''),
+      remember: this.fb.control(false),
     });
+  }
+
+  onSubmit(): void {
+    console.log(this.form.value);
   }
 
 }
