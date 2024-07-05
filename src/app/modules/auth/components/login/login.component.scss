@@ -1,0 +1,16 @@
+.login {
+  .button-group-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .login__remember {
+    display: flex;
+    align-items: center;
+  }
+
+  .login__restore-password {
+    text-decoration: underline;
+  }
+}

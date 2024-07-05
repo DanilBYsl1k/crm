@@ -6,6 +6,9 @@
       Work Email
       <mat-form-field class="example-full-width input">
         <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        @if (form.get('email')?.hasError('required')) {
+          <mat-error>Email field must be <strong>required</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 
@@ -13,6 +16,9 @@
       Name Company
       <mat-form-field class="example-full-width input">
         <input type="text" matInput formControlName="company" placeholder="gloria">
+        @if (form.get('company')?.hasError('required')) {
+          <mat-error>Company field must be <strong>required</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 
@@ -20,6 +26,10 @@
       Password
       <mat-form-field class="example-full-width input">
         <input type="password" matInput formControlName="password" placeholder="*******">
+
+        @if (form.get('company')?.hasError('required')) {
+          <mat-error>Company field must be <strong>required</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 
@@ -27,6 +37,13 @@
       Password repeat
       <mat-form-field class="example-full-width input">
         <input type="password" matInput formControlName="repeatPassword" placeholder="*******">
+
+        @if (form.get('repeatPassword')?.hasError('passwordMismatch')) {
+          <mat-error>Password must be <strong>match</strong></mat-error>
+        }
+        @if (form.get('repeatPassword')?.hasError('required')) {
+          <mat-error>Password must be <strong>required</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 

@@ -9,9 +9,9 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
-import { IRegisterForm } from "../../../../shared/interface/auth.interface";
-import { ValidationFunctions } from "../../../../shared/validations/validation-functions";
-
+import { IRegister, IRegisterForm } from "@shared/interface/auth.interface";
+import { ValidationFunctions } from "@shared/validations/validation-functions";
+import { AuthService } from "@shared/services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -28,11 +28,10 @@ import { ValidationFunctions } from "../../../../shared/validations/validation-f
 export class RegisterComponent implements OnInit {
   form: FormGroup<IRegisterForm>;
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
+    this.form = this.fb.nonNullable.group({
         company: this.fb.control('', [ Validators.required ]),
         email: this.fb.control('', [ Validators.required, Validators.email ]),
         password: this.fb.control('', [ Validators.required, Validators.min(6) ]),
@@ -45,6 +44,8 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log(this.form.value);
+    if (this.form.valid) {
+      this.authService.register(this.form.value as IRegister).subscribe();
+    }
   }
 }

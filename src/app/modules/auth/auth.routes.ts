@@ -1,7 +1,8 @@
 import { Routes } from "@angular/router";
 
-import { LoginComponent } from "./components/login/login.component";
-import { RegisterComponent } from "./components/register/register.component";
+import { LoginComponent } from "@modules/auth/components/login/login.component";
+import { RegisterComponent } from "@modules/auth/components/register/register.component";
+import { RestorePasswordComponent } from "@modules/auth/components/restore-password/restore-password.component";
 
 export const authRoutes: Routes = [
   {
@@ -16,5 +17,9 @@ export const authRoutes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  {
+    path: 'restore-password',
+    component: RestorePasswordComponent
   }
 ]

@@ -1,4 +1,4 @@
-<div class="register">
+<div class="login">
   <h2 class="text-center title">Login</h2>
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -6,6 +6,13 @@
       Work Email
       <mat-form-field class="example-full-width input">
         <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        @if (form.get('email')?.hasError('required')) {
+          <mat-error>Email field must be <strong>required</strong></mat-error>
+        }
+
+        @if (form.get('email')?.hasError('email')) {
+          <mat-error>Email <strong>invalid</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 
@@ -13,18 +20,28 @@
       Password
       <mat-form-field class="example-full-width input">
         <input type="password" matInput formControlName="password" placeholder="*******">
+        @if (form.get('password')?.hasError('required')) {
+          <mat-error>Password field must be <strong>full</strong></mat-error>
+        }
+        @if (form.get('password')?.hasError('minlength')) {
+          <mat-error>Min length field must be <strong>6 symbols</strong></mat-error>
+        }
       </mat-form-field>
     </mat-label>
 
-    <mat-label >
+    <mat-label class="login__remember">
       Remember me
       <input type="checkbox" formControlName="remember" placeholder="*******">
     </mat-label>
 
-    <div>
+    <div class="button-group-wrapper">
       <button type="submit" mat-flat-button [disabled]="form.invalid" class="mat-primary button">
         Submit
       </button>
+
+      <p class="login__restore-password">
+        <a routerLink="../restore-password">Forgot password</a>
+      </p>
     </div>
 
   </form>
