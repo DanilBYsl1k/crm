@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { environment } from "../../../environments/environment";
 
@@ -9,8 +9,9 @@ export class BaseService {
 
   constructor(private httpClient: HttpClient) {}
 
-  get<T>(methods: string, params: object = {}): Observable<T> {
+  get<T>(methods: string, params: object = {}, header ={} ): Observable<T> {
     return this.httpClient.get<T>(`${this.domainAPI}/${methods}`, {
+      headers: header as HttpHeaders,
       params: params as HttpParams,
     });
   }

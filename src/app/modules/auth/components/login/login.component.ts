@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.form = this.fb.nonNullable.group({
+    this.form = this.fb.group({
       email: this.fb.control('', [ Validators.required, Validators.email ]),
       password: this.fb.control('', [Validators.minLength(6), Validators.required]),
       remember: this.fb.control(false),

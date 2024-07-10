@@ -1,39 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Observable, tap } from "rxjs";
+import { catchError, concatMap, Observable, of, take, tap } from "rxjs";
 
 import { BaseService } from "@core/services/base-service.service";
-import { LocalStorageService } from "@core/services/local-storage.service";
 import { ILogin, IRegister } from "@shared/interface/auth.interface";
-
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: BaseService, private localStorage: LocalStorageService) {}
+  constructor(private http: BaseService) {
+  }
 
   public login(data: ILogin): Observable<any> {
-    return this.http.post('login').pipe(
-      tap((res)=> {
-        if (data.remember) this.localStorage.setData('token', res.token);
+    return this.http.post<{ access_token: string }>('v1/auth/login', data).pipe(
+      tap(({ access_token }) => {
+        if (data.remember) {
+          localStorage.setItem('token', access_token);
+        }
       }),
-     );
+      concatMap(() => this.profile())
+    );
   }
 
   public register(data: IRegister): Observable<void> {
-    return this.http.post('register', data);
+    return this.http.post('v1/auth/register', data);
   }
 
-  public restorePassword() {
-    return this.http.get('restore-password').pipe();
+  public refreshToken(): Observable<any> {
+    return this.http.get('v1/auth/refreshToken').pipe(catchError((error) => of(error)))
+  }
+
+  public restorePassword(email: string) {
+    return this.http.post('v1/auth/reset-password', { email }).pipe();
   }
 
   public profile() {
-    return this.http.get('profile');
+    return this.http.get('v1/profile').pipe(
+      catchError(() => this.refreshToken())
+    );
+  }
+
+  public checkToken(token: string) {
+    return this.http.get(`v1/auth/verify-token/${token}`).pipe(take(1))
   }
 
   public logout(): Observable<void> {
-    return this.http.get('logout');
+    return this.http.get('v1/auth/logout');
   }
 }

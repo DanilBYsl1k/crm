@@ -33,6 +33,6 @@ export class RestorePasswordComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.authService.restorePassword()
+    this.authService.restorePassword(this.email.value as string).subscribe()
   }
 }

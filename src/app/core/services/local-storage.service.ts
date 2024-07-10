@@ -7,11 +7,13 @@ export class LocalStorageService {
 
   constructor() { }
 
-  public setData<T>(data: T, key: string): void {
-    localStorage.setItem(key, JSON.stringify(data));
+  public setValue<T>(data: T, key: string): void {
+    let value = JSON.stringify(data);
+
+    localStorage.setItem(key, value);
   }
 
-  public getData<T>(key: string): T | undefined {
+  public getData<T>(key: string): T | any {
     let data  = localStorage.getItem(key);
 
     return data ? JSON.parse(data) : undefined;
