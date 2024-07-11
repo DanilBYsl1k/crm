@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { catchError, concatMap, Observable, of, take, tap } from "rxjs";
 
 import { BaseService } from "@core/services/base-service.service";
-import { ILogin, IRegister } from "@shared/interface/auth.interface";
+import { ILogin, InnerPassword, IRegister } from "@shared/interface/auth.interface";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: BaseService) {
-  }
+  constructor(private http: BaseService, private route: Router) {}
 
   public login(data: ILogin): Observable<any> {
     return this.http.post<{ access_token: string }>('v1/auth/login', data).pipe(
@@ -32,7 +32,9 @@ export class AuthService {
   }
 
   public restorePassword(email: string) {
-    return this.http.post('v1/auth/reset-password', { email }).pipe();
+    return this.http.post('v1/auth/reset-password', { email }).pipe(
+      tap(()=> { this.route.navigate(['/']) })
+    );
   }
 
   public profile() {
@@ -41,8 +43,18 @@ export class AuthService {
     );
   }
 
-  public checkToken(token: string) {
-    return this.http.get(`v1/auth/verify-token/${token}`).pipe(take(1))
+  public checkToken(token: string): Observable<{ result: boolean }> {
+    return this.http.get<{ result: boolean }>(`v1/auth/verify-token/${token}`).pipe(
+      catchError(() => {
+        this.route.navigate(['/'])
+        return of();
+      }),
+      take(1)
+    );
+  }
+
+  public innerPassword(data: InnerPassword) {
+    return this.http.post('v1/auth/change-password', data).pipe(take(1))
   }
 
   public logout(): Observable<void> {

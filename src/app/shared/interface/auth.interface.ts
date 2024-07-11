@@ -27,3 +27,8 @@ export interface IRegister extends IAuth {
 export interface ILogin extends IAuth {
   remember: boolean;
 }
+
+export interface InnerPassword {
+  repeatPassword: string;
+  company: string;
+}

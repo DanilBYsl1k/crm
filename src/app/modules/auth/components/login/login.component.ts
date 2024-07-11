@@ -27,7 +27,10 @@ import { AuthService } from "@shared/services/auth.service";
 export class LoginComponent implements OnInit {
   form: FormGroup<ILoginForm>;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
