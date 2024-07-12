@@ -62,8 +62,10 @@ export class ResetPasswordFormComponent implements OnInit {
   }
 
   onSubmit() {
+    let data = { ...this.form.value, token: this.token } as InnerPassword
+
     if (this.form.valid) {
-      this.authService.innerPassword(this.form.value as InnerPassword).subscribe()
+      this.authService.innerPassword(data).subscribe()
     }
   }
 }

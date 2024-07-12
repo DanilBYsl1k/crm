@@ -8,4 +8,8 @@ export const routes: Routes = [
     loadComponent: ()=> import('@modules/auth/auth.component').then(c => c.AuthComponent),
     children: authRoutes
   },
+  {
+    path: '**',
+    loadComponent: () => import('@modules/error-page/error-page.component').then(c => c.ErrorPageComponent),
+  }
 ];

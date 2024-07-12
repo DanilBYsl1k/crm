@@ -1,3 +1,7 @@
-<div class="submit-email">
-
-</div>
+@defer (when submit$|async) {
+  <div class="submit-email">
+    you email submit
+  </div>
+} @placeholder {
+  <app-preloader></app-preloader>
+}

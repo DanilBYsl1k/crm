@@ -31,4 +31,5 @@ export interface ILogin extends IAuth {
 export interface InnerPassword {
   repeatPassword: string;
   company: string;
+  token: string
 }

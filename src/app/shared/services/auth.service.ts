@@ -23,18 +23,27 @@ export class AuthService {
     );
   }
 
-  public register(data: IRegister): Observable<void> {
-    return this.http.post('v1/auth/register', data);
-  }
-
-  public refreshToken(): Observable<any> {
-    return this.http.get('v1/auth/refreshToken').pipe(catchError((error) => of(error)))
+  public register(data: IRegister) {
+    return this.http.post('v1/auth/register', data).pipe(
+      tap(()=> { this.route.navigate(['/auth/email-message']) })
+    );
   }
 
   public restorePassword(email: string) {
     return this.http.post('v1/auth/reset-password', { email }).pipe(
-      tap(()=> { this.route.navigate(['/']) })
+      tap(()=> { this.route.navigate(['/auth/email-message']) })
     );
+  }
+
+  public innerPassword(data: InnerPassword) {
+    return this.http.post('v1/auth/change-password', data).pipe(
+      tap(()=> { this.route.navigate(['/auth/submit-password']) }),
+      take(1)
+    );
+  }
+
+  public submitEmail(token: string): Observable<any> {
+    return this.http.get(`v1/auth/submit-email/${token}`).pipe()
   }
 
   public profile() {
@@ -53,8 +62,8 @@ export class AuthService {
     );
   }
 
-  public innerPassword(data: InnerPassword) {
-    return this.http.post('v1/auth/change-password', data).pipe(take(1))
+  public refreshToken(): Observable<any> {
+    return this.http.get('v1/auth/refreshToken').pipe(catchError((error) => of(error)))
   }
 
   public logout(): Observable<void> {
