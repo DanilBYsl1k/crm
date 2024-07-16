@@ -14,7 +14,7 @@ export class AuthService {
   constructor(private http: BaseService, private route: Router) {
   }
 
-  public login(data: ILogin): Observable<any> {
+  public login(data: ILogin): Observable<{ access_token: string }> {
     return this.http.post<{ access_token: string }>('v1/auth/login', data).pipe(
       tap(({ access_token }) => {
         if (data.remember) {
@@ -22,13 +22,13 @@ export class AuthService {
         } else {
           sessionStorage.setItem('token', access_token);
         }
-        this.isAuth.set(true)
+        this.route.navigate([ '/dashboard' ])
       }),
       concatMap(() => this.profile())
     );
   }
 
-  public register(data: IRegister) {
+  public register(data: IRegister): Observable<unknown | void> {
     return this.http.post('v1/auth/register', data).pipe(
       tap(() => {
         this.route.navigate([ '/auth/email-message' ])
@@ -36,7 +36,7 @@ export class AuthService {
     );
   }
 
-  public restorePassword(email: string) {
+  public restorePassword(email: string): Observable<unknown | void> {
     return this.http.post('v1/auth/reset-password', { email }).pipe(
       tap(() => {
         this.route.navigate([ '/auth/email-message' ])
@@ -53,7 +53,7 @@ export class AuthService {
     );
   }
 
-  public submitEmail(token: string): Observable<any> {
+  public submitEmail(token: string): Observable<unknown | void> {
     return this.http.get(`v1/auth/submit-email/${token}`).pipe()
   }
 
@@ -77,13 +77,19 @@ export class AuthService {
   }
 
   public refreshToken(): Observable<any> {
-    return this.http.get('v1/auth/refreshToken').pipe(catchError((error) => of(error)))
+    return this.http.get<{ access_token: string }>('v1/auth/refresh-token').pipe(
+      tap(({ access_token }) => {
+        localStorage.setItem('token', access_token);
+      }),
+      concatMap(() => this.profile()),
+      catchError((error) => of(error)))
   }
 
   public logout() {
     return this.http.get('v1/logout').pipe(
       tap(() => {
         localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         this.isAuth.set(false);
       })
     );

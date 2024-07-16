@@ -3,5 +3,49 @@
 .nav-bar {
   min-height: 100vh;
   height: 100%;
-  border-right: $light-grey 2px solid ;
+  border-right: $light-grey 2px solid;
+
+  &__route {
+
+  }
+
+  &__route-title {
+    color: $aqua-grey;
+    font-weight: 400;
+    padding: 0 30px;
+    text-transform: uppercase;
+    margin: 15px 0;
+  }
+
+  &__route-list {
+    li {
+      padding: 15px 30px;
+      transition: 0.1s ease;
+      cursor: pointer;
+
+      a {
+        display: inline-flex;
+        transition: inherit;
+        align-items: center;
+        gap: 10px;
+
+      }
+
+      &:hover {
+        background: $light-grey;
+        color: $blue;
+
+        svg {
+          color: red;
+        }
+      }
+    }
+  }
+
+  .logo {
+    padding: 25px;
+    display: flex;
+    align-items: center;
+  }
+
 }

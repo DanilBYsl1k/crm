@@ -1,7 +1,9 @@
 <div class="app-wrapper">
-<!--  <div class="nav-content">-->
-<!--    <app-nav-bar></app-nav-bar>-->
-<!--  </div>-->
+  @if (isAuth()){
+    <div class="nav-content">
+      <app-nav-bar></app-nav-bar>
+    </div>
+  }
   <div class="main-content-wrapper">
     <app-header></app-header>
 

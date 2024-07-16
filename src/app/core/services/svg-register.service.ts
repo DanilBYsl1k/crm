@@ -1,24 +1,20 @@
-import { Component } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { Injectable } from '@angular/core';
+import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-
 import { Icons } from "@shared/enums/icons";
 
-@Component({
-  selector: 'app-nav-bar',
-  standalone: true,
-  imports: [ MatIconModule ],
-  templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss'
+@Injectable({
+  providedIn: 'root'
 })
-export class NavBarComponent {
+export class SvgRegisterService {
+
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer
   ) { }
 
   public registerIcons(): void {
-    this.loadIcons(Object.values(Icons), '../assets/svg/icons');
+    this.loadIcons(Object.values(Icons), '../assets/icons');
   }
 
   private loadIcons(iconKeys: string[], iconUrl: string): void {

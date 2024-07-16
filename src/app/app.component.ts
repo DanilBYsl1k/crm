@@ -26,7 +26,11 @@ import { AuthService } from "@shared/services/auth.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  isAuth = this.authService.isAuth
+
+  constructor(
+    private authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.authService.profile().subscribe();
