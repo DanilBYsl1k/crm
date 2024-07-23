@@ -1,5 +1,4 @@
-@import '../../../../styles/variables/colors';
-
+@import "variables/colors";
 .nav-bar {
   min-height: 100vh;
   height: 100%;
@@ -23,21 +22,20 @@
       transition: 0.1s ease;
       cursor: pointer;
 
+      &:hover {
+        background: $light-grey;
+        color: $blue;
+        a {
+          opacity: unset;
+        }
+      }
+
       a {
         display: inline-flex;
         transition: inherit;
         align-items: center;
         gap: 10px;
 
-      }
-
-      &:hover {
-        background: $light-grey;
-        color: $blue;
-
-        svg {
-          color: red;
-        }
       }
     }
   }

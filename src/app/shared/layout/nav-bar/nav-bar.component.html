@@ -6,8 +6,10 @@
     <nav>
       <h6 class="nav-bar__route-title">Menu</h6>
       <ul class="nav-bar__route-list">
-        <li><a><mat-icon svgIcon="grid"></mat-icon> Dashboard</a></li>
-        <li><a><mat-icon svgIcon="user"></mat-icon>Accounts</a></li>
+        <li routerLink="dashboard"><a><mat-icon svgIcon="grid"></mat-icon> Dashboard</a></li>
+        @if(user().role === 'admin' ) {
+          <li><a><mat-icon svgIcon="user"></mat-icon>Accounts</a></li>
+        }
       </ul>
     </nav>
 

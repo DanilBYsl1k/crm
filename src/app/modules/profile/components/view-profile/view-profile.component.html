@@ -1,0 +1,27 @@
+<div class="view-profile">
+  <h1>Profile</h1>
+  <div class="view-profile__img-wrapper">
+    <h3>Personal avatar</h3>
+    <div class="view-profile__img">
+      <img [src]="user().avatar || '/assets/icons/user.svg'" alt="avatar">
+    </div>
+    <input type="file" name="" id="">
+  </div>
+  <div>
+    <h3>Personal info</h3>
+    <div>
+      <p>
+        Email: {{ user().email }}
+      </p>
+      <p>
+        Company: {{ user().company }}
+      </p>
+      <p>
+        Phone: {{ user().phone }}
+      </p>
+      <p>
+        Role: {{ user().role }}
+      </p>
+    </div>
+  </div>
+</div>

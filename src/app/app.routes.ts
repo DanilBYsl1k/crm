@@ -3,8 +3,14 @@ import { Routes } from '@angular/router';
 import { authRoutes } from "@modules/auth/auth.routes";
 import { authGuard } from "@core/guards/auth.guard";
 import { dashboardRoutes } from "@modules/dashboard/dashboard.routes";
+import { profileRoutes } from "@modules/profile/profile.routes";
 
 export const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboard'
+  },
   {
     path: 'auth',
     loadComponent: ()=> import('@modules/auth/auth.component').then(c => c.AuthComponent),
@@ -16,11 +22,11 @@ export const routes: Routes = [
     children: dashboardRoutes,
     canActivate: [authGuard]
   },
-  // {
-  //   path: 'profile',
-  //   loadComponent: ()=> import('@modules/dashboard/dashboard.component').then(c => c.DashboardComponent),
-  //   children: authRoutes,
-  // },
+  {
+    path: 'profile',
+    loadComponent: ()=> import('@modules/profile/profile.component').then(c => c.ProfileComponent),
+    children: profileRoutes,
+  },
 
   // {
   //   path: 'calendar',

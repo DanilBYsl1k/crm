@@ -1,29 +1,17 @@
 import { Component } from '@angular/core';
-import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
-import { DomSanitizer } from "@angular/platform-browser";
+import { MatIconModule } from '@angular/material/icon';
 
-import { Icons } from "@shared/enums/icons";
+import { RouterLink } from "@angular/router";
+import { AuthService } from "@shared/services/auth.service";
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [ MatIconModule ],
+  imports: [ MatIconModule, RouterLink ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-  constructor(
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) { }
-
-  public registerIcons(): void {
-    this.loadIcons(Object.values(Icons), '../assets/svg/icons');
-  }
-
-  private loadIcons(iconKeys: string[], iconUrl: string): void {
-    iconKeys.forEach(key => {
-      this.matIconRegistry.addSvgIcon(key, this.domSanitizer.bypassSecurityTrustResourceUrl(`${iconUrl}/${key}.svg`));
-    });
-  }
+  user = this.authService.user
+  constructor(private authService: AuthService) {}
 }

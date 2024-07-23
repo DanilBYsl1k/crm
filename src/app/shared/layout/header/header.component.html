@@ -2,18 +2,29 @@
   <div class="header__container">
     <nav class="header__auth">
       @if (!authUser()) {
-      <ul class="header__auth-menu">
-        <li><a routerLinkActive="active" routerLink="auth/register">Register</a></li>
-        <li><a routerLinkActive="active" routerLink="auth/login">Login</a></li>
-      </ul>
+        <ul class="header__auth-menu">
+          <li><a routerLinkActive="active" routerLink="auth/register">Register</a></li>
+          <li><a routerLinkActive="active" routerLink="auth/login">Login</a></li>
+        </ul>
       } @else {
         <ul class="header__user-panel">
-          <div class="header__avatar-user">
-            <img src="/assets/img/user-avatar.jpg" alt="">
-          </div>
+          <li>
+            <a routerLink="profile" class="profile-link">
+              <div class="header__avatar-user">
+                <img src="/assets/img/user-avatar.jpg" alt="">
+              </div>
+              <span class="profile-link-name">
+                @if (user()) {
+                  {{ user().email }}
+                }
+            </span>
+            </a>
+          </li>
+
           <li (click)="logOut()"><a>Log-out</a></li>
         </ul>
       }
     </nav>
   </div>
 </header>
+

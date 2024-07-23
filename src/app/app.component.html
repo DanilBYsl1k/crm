@@ -1,17 +1,20 @@
-<div class="app-wrapper">
-  @if (isAuth()){
-    <div class="nav-content">
-      <app-nav-bar></app-nav-bar>
+@defer (when $profile | async) {
+  <div class="app-wrapper">
+    @if (isAuth()){
+      <div class="nav-content">
+        <app-nav-bar></app-nav-bar>
+      </div>
+    }
+    <div class="main-content-wrapper">
+      <app-header></app-header>
+
+      <app-main>
+        <router-outlet></router-outlet>
+      </app-main>
+
+      <app-footer></app-footer>
     </div>
-  }
-  <div class="main-content-wrapper">
-    <app-header></app-header>
-
-    <app-main>
-      <router-outlet></router-outlet>
-    </app-main>
-
-    <app-footer></app-footer>
   </div>
-</div>
-
+} @placeholder {
+  <app-preloader></app-preloader>
+}

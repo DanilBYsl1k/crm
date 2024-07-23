@@ -1,4 +1,4 @@
-@import "../../../../styles/variables/colors";
+@import "variables/colors";
 
 .header {
 
@@ -32,12 +32,12 @@
     border-radius: 100%;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 0 10px 2px #80808054;
+    border: 2px solid white;
+
     img {
       object-fit: cover;
       width: 100%;
       height: 100%;
-      outline: 1px solid red;
     }
   }
 
@@ -47,7 +47,18 @@
     align-items: center;
   }
 
+  .profile-link-name {
+    padding: 0 10px;
+  }
+
   .active {
     color: red;
+  }
+
+  .profile-link {
+    display: flex;
+    align-items: center;
+    background: $light-grey;
+    border-radius: 20px;
   }
 }
