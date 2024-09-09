@@ -5,7 +5,8 @@ import { RouterOutlet } from "@angular/router";
   selector: 'app-profile',
   standalone: true,
   imports: [
-    RouterOutlet
+    RouterOutlet,
+
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',

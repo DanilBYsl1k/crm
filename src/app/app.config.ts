@@ -6,6 +6,7 @@ import { provideHttpClient, withInterceptors } from "@angular/common/http";
 import { routes } from './app.routes';
 import { tokenInterceptor } from "@core/interceptor/token.interceptor";
 import { SvgRegisterService } from "@core/services/svg-register.service";
+import { errorHandlerInterceptor } from "@core/interceptor/error-handler.interceptor";
 
 function initializeSvgRegisterService(svgRegisterService: SvgRegisterService): () => void {
   return () => svgRegisterService.registerIcons();
@@ -17,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([
         tokenInterceptor,
-        // errorHandlerInterceptor
+        errorHandlerInterceptor
       ])
     ),
     provideAnimationsAsync(),

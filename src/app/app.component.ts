@@ -31,7 +31,5 @@ export class AppComponent {
   isAuth = this.authService.isAuth;
   $profile = this.authService.profile();
 
-  constructor(
-    private authService: AuthService,
-  ) {}
+  constructor(private authService: AuthService) {}
 }

@@ -84,3 +84,25 @@ input[type='checkbox'] {
     }
   }
 }
+
+a {
+  color: inherit;
+  &:hover {
+    mat-icon {
+      color: inherit;
+    }
+  }
+
+  mat-icon {
+    transition: inherit;
+    color: white;
+
+    svg {
+      fill: inherit;
+
+      path {
+        fill: inherit;
+      }
+    }
+  }
+}
