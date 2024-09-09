@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { catchError, , throwError } from "rxjs";
+import { catchError, throwError } from "rxjs";
 import { SnackBarComponent } from "@shared/components/snack-bar/snack-bar.component";
 
 export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
@@ -16,6 +16,15 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
           data: { error: error.error ? error.error : error.message }
         });
       }
+
+      if(status >= 500) {
+        _snackBar.openFromComponent(SnackBarComponent, {
+          duration: 5000,
+          horizontalPosition: 'end',
+          data: { error: 'Something went wrong' }
+        });
+      }
+
 
       return throwError(() => error);
     })
