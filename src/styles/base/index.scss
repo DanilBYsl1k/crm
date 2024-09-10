@@ -85,7 +85,9 @@ input[type='checkbox'] {
   }
 }
 
-a {
+
+
+a, li {
   color: inherit;
   &:hover {
     mat-icon {
@@ -99,10 +101,7 @@ a {
 
     svg {
       fill: inherit;
-
-      path {
-        fill: inherit;
-      }
+      stroke: inherit;
     }
   }
 }

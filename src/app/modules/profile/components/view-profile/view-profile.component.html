@@ -5,12 +5,7 @@
     <div class="view-profile__img">
       <img [src]="user().avatar || '/assets/icons/user.svg'" alt="avatar">
     </div>
-    <app-input-file  [formControl]="file"></app-input-file>
 
-    <p>    {{ imageSrc() }}
-    </p>
-
-    <button (click)="uploadImage()">upload img</button>
   </div>
   <div>
     <h3>Personal info</h3>

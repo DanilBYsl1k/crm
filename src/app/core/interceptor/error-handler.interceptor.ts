@@ -8,25 +8,28 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   let _snackBar = inject(MatSnackBar);
 
   return next(req).pipe(
+
     catchError(({status, error, message }: HttpErrorResponse) => {
       if (error || message) {
-        _snackBar.openFromComponent(SnackBarComponent, {
-          duration: 5000,
-          horizontalPosition: 'end',
-          data: { error: error.error ? error.error : error.message }
-        });
+        const errorMsg =  error.error ? error.error : error.message
+        snackBar(errorMsg);
       }
 
       if(status >= 500) {
-        _snackBar.openFromComponent(SnackBarComponent, {
-          duration: 5000,
-          horizontalPosition: 'end',
-          data: { error: 'Something went wrong' }
-        });
+        snackBar('something went wrong');
       }
-
 
       return throwError(() => error);
     })
   );
+
+  function snackBar(message: string) {
+
+    _snackBar.openFromComponent(SnackBarComponent, {
+      duration: 5000,
+      horizontalPosition: 'end',
+      data: { error: message }
+    });
+  }
 };
+

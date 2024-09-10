@@ -33,7 +33,7 @@ export class InputFileComponent implements ControlValueAccessor {
     this.onTouched = fn
   }
 
-  writeValue(val: any): void {
+  writeValue(val: File): void {
     this.onChange(val)
   }
 

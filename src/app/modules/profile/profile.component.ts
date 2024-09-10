@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
 
   ],
   templateUrl: './profile.component.html',

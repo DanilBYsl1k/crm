@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
+
 import { AuthService } from "@shared/services/auth.service";
 import { ProfileService } from "@shared/services/profile.service";
-import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { InputFileComponent } from "@shared/components/input-file/input-file.component";
-import { JsonPipe } from "@angular/common";
+import { ValidationFunctions } from "@shared/validations/validation-functions"
+import { AllowedFileTypesEnum } from "@shared/enums/allowed-file-types.enum";
 
 @Component({
   selector: 'app-view-profile',
@@ -11,25 +13,24 @@ import { JsonPipe } from "@angular/common";
   imports: [
     ReactiveFormsModule,
     InputFileComponent,
-    JsonPipe
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewProfileComponent implements OnInit {
-  public user = this.authService.user
-  public file = new FormControl(null);
-  public imageSrc = signal<string | ArrayBuffer | null | undefined>(null);
+  public user = this.authService.user;
+  public file = new FormControl<File | null>(null, [
+    Validators.required,
+    ValidationFunctions.imageType([AllowedFileTypesEnum.JPEG,AllowedFileTypesEnum.PNG])
+  ]);
 
   constructor(
     private authService: AuthService,
-    private profileService: ProfileService
-  ) {
-  }
+    private profileService: ProfileService,
+  ) {}
 
   ngOnInit(): void {
-
     this.file.valueChanges.subscribe((file) => {
       const reader = new FileReader();
 
@@ -44,11 +45,12 @@ export class ViewProfileComponent implements OnInit {
   }
 
   uploadImage() {
-    if (this.file.value) {
-      // const data = new FormData();
-      // data.append('file', this.file.value )
+    if (this.file.valid) {
 
-      // this.profileService.uploadAvatar(data).subscribe()
+      const data = new FormData();
+      data.append('file', this.file.value! );
+
+      this.profileService.uploadAvatar(data).subscribe()
     }
   }
 }

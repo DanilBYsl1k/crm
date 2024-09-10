@@ -1,5 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 
+import { AllowedFileTypesEnum } from "@shared/enums/allowed-file-types.enum";
+
 export class ValidationFunctions {
   public static comparePassword(controlName: string, matchingControlName: string): ValidatorFn {
     return (formGroup: AbstractControl): ValidationErrors | null => {
@@ -18,5 +20,23 @@ export class ValidationFunctions {
 
       return null;
     };
+  }
+
+  public static imageType(allowedTypes: AllowedFileTypesEnum[]): ValidatorFn {
+    return (control: AbstractControl<File>): ValidationErrors | null => {
+      const file = control.value;
+
+      if (file) {
+        const fileType = file.type as AllowedFileTypesEnum;
+        if (allowedTypes.includes(fileType)) {
+          return null
+        }
+
+        return { allowedFile: true }
+      }
+
+      return null;
+    }
+
   }
 }

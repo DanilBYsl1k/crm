@@ -1,13 +1,84 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatInput } from "@angular/material/input";
+
+import { ValidationFunctions } from "@shared/validations/validation-functions";
+import { AllowedFileTypesEnum } from "@shared/enums/allowed-file-types.enum";
+import { AuthService } from "@shared/services/auth.service";
+import { ProfileService } from "@shared/services/profile.service";
+import { InputFileComponent } from "@shared/components/input-file/input-file.component";
+import { MatButton } from "@angular/material/button";
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [],
+  imports: [
+    InputFileComponent,
+    ReactiveFormsModule,
+    MatError,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    MatButton
+  ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit{
+  public user = this.authService.user
+  public form: FormGroup;
 
+
+  constructor(
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private fb: FormBuilder
+  ) {
+  }
+
+  ngOnInit(): void {
+    this.initForm();
+
+    this.form.controls['avatar'].valueChanges.subscribe((file) => {
+      const reader = new FileReader();
+      if (file.type === AllowedFileTypesEnum.PNG || file.type === AllowedFileTypesEnum.JPEG) {
+
+        reader.readAsDataURL(file);
+        reader.onload = (_event) => {
+
+          this.user.update((value) => {
+            return { ...value, avatar: reader.result }
+          });
+        }
+      }
+    })
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      const data = new FormData();
+      for (let valueKey in this.form.value) {
+
+        if (this.form.controls[valueKey].value) {
+          data.append(valueKey, this.form.controls[valueKey].value)
+         }
+      }
+    }
+  }
+
+  private initForm() {
+    this.form = this.fb.group({
+      email: this.fb.control('', [Validators.required, Validators.email]),
+      company: this.fb.control('', [Validators.required]),
+      phone: this.fb.control('', []),
+      role: this.fb.control('', [Validators.required]),
+      avatar: this.fb.control(null, [
+        ValidationFunctions.imageType([AllowedFileTypesEnum.JPEG,AllowedFileTypesEnum.PNG])
+      ]),
+    });
+
+    this.form.patchValue(this.user())
+  }
 }
