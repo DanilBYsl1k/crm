@@ -33,8 +33,6 @@ export class BaseService {
   }
 
   patch<T>(methods: string, params: object = {}): Observable<T> {
-    return this.httpClient.patch<T>(`${this.domainAPI}/${methods}`, {
-      body: params,
-    });
+    return this.httpClient.patch<T>(`${this.domainAPI}/${methods}`, params);
   }
 }

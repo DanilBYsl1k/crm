@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
@@ -9,6 +9,7 @@ import { AuthService } from "@shared/services/auth.service";
 import { ProfileService } from "@shared/services/profile.service";
 import { InputFileComponent } from "@shared/components/input-file/input-file.component";
 import { MatButton } from "@angular/material/button";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'app-edit-profile',
@@ -26,11 +27,10 @@ import { MatButton } from "@angular/material/button";
   styleUrl: './edit-profile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditProfileComponent implements OnInit{
+export class EditProfileComponent implements OnInit, OnDestroy{
   public user = this.authService.user
   public form: FormGroup;
-
-
+  private subscription: Subscription;
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
@@ -56,6 +56,10 @@ export class EditProfileComponent implements OnInit{
     })
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       const data = new FormData();
@@ -65,6 +69,8 @@ export class EditProfileComponent implements OnInit{
           data.append(valueKey, this.form.controls[valueKey].value)
          }
       }
+
+      this.subscription = this.profileService.uploadProfile(data).subscribe();
     }
   }
 
