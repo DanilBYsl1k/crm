@@ -8,10 +8,10 @@
         </ul>
       } @else {
         <ul class="header__user-panel">
-          <li>
-            <a routerLink="profile" class="profile-link">
+          <li [matMenuTriggerFor]="menu">
+            <a class="profile-link">
               <div class="header__avatar-user">
-                <img src="/assets/img/user-avatar.jpg" alt="">
+                <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
               </div>
               <span class="profile-link-name">
                 @if (user()) {
@@ -20,8 +20,24 @@
             </span>
             </a>
           </li>
-
-          <li (click)="logOut()"><a>Log-out</a></li>
+          <mat-menu #menu="matMenu" class="header-widget">
+            <button mat-menu-item routerLink="/profile/edit">
+              <mat-icon>create</mat-icon>
+              <span>Edit profile</span>
+            </button>
+            <button mat-menu-item routerLink="/profile/view">
+              <mat-icon>remove_red_eye</mat-icon>
+              <span>View profile</span>
+            </button>
+            <button mat-menu-item routerLink="/profile/view">
+              <mat-icon>settings_applications</mat-icon>
+              <span>Setting</span>
+            </button>
+            <button (click)="logOut()" mat-menu-item routerLink="/profile/view">
+              <mat-icon>directions_run</mat-icon>
+              <span>Log out</span>
+            </button>
+          </mat-menu>
         </ul>
       }
     </nav>

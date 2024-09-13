@@ -10,6 +10,7 @@ import { ProfileService } from "@shared/services/profile.service";
 import { InputFileComponent } from "@shared/components/input-file/input-file.component";
 import { MatButton } from "@angular/material/button";
 import { Subscription } from "rxjs";
+import { UserInterface } from "@shared/interface/user.interface";
 
 @Component({
   selector: 'app-edit-profile',
@@ -46,10 +47,9 @@ export class EditProfileComponent implements OnInit, OnDestroy{
       if (file.type === AllowedFileTypesEnum.PNG || file.type === AllowedFileTypesEnum.JPEG) {
 
         reader.readAsDataURL(file);
-        reader.onload = (_event) => {
-
+        reader.onload = () => {
           this.user.update((value) => {
-            return { ...value, avatar: reader.result }
+            return { ...value,  avatar: { ...value.avatar, file_path: reader.result } }
           });
         }
       }
@@ -57,7 +57,9 @@ export class EditProfileComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
   onSubmit(): void {
@@ -76,15 +78,17 @@ export class EditProfileComponent implements OnInit, OnDestroy{
 
   private initForm() {
     this.form = this.fb.group({
+      name: this.fb.control('', []),
       email: this.fb.control('', [Validators.required, Validators.email]),
       company: this.fb.control('', [Validators.required]),
-      phone: this.fb.control('', []),
-      role: this.fb.control('', [Validators.required]),
-      avatar: this.fb.control(null, [
-        ValidationFunctions.imageType([AllowedFileTypesEnum.JPEG,AllowedFileTypesEnum.PNG])
-      ]),
+      phone: this.fb.control(''),
+      role: this.fb.control(''),
+      avatar: this.fb.control(null),
     });
 
+    //  [
+    //         ValidationFunctions.imageType([AllowedFileTypesEnum.JPEG,AllowedFileTypesEnum.PNG])
+    //       ]
     this.form.patchValue(this.user())
   }
 }

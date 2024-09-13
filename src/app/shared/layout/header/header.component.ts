@@ -2,7 +2,11 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { AuthService } from "@shared/services/auth.service";
 import { Subscription } from "rxjs";
-import { JsonPipe } from "@angular/common";
+import { JsonPipe, NgOptimizedImage } from "@angular/common";
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-header',
@@ -10,7 +14,11 @@ import { JsonPipe } from "@angular/common";
   imports: [
     RouterLink,
     RouterLinkActive,
-    JsonPipe
+    JsonPipe,
+    NgOptimizedImage,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',

@@ -15,6 +15,6 @@ export class ProfileService {
   // }
 
   public uploadProfile(data: any): Observable<any> {
-    return this.http.patch<any>('v1/uploadProfile', data);
+    return this.http.post<any>('v1/uploadProfile', data);
   }
 }

@@ -3,7 +3,8 @@
   <div class="view-profile__img-wrapper">
     <h3>Personal avatar</h3>
     <div class="view-profile__img">
-      <img [src]="user().avatar || '/assets/icons/user.svg'" alt="avatar">
+
+      <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
     </div>
 
   </div>

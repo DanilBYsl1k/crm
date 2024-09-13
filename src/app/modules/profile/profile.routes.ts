@@ -6,6 +6,11 @@ import { EditProfileComponent } from "@modules/profile/components/edit-profile/e
 export const profileRoutes: Routes = [
   {
     path: '',
+    redirectTo: 'view',
+    pathMatch: 'full'
+  },
+  {
+    path: 'view',
     component: ViewProfileComponent,
   },
   {

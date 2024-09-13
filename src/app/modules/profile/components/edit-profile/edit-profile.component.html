@@ -2,9 +2,17 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class="edit-profile__grid">
       <div class="edit-profile__img">
-        <img [src]="user().avatar || '/assets/icons/user.svg'" alt="avatar">
+        <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
+        <app-input-file  formControlName="avatar"></app-input-file>
+
       </div>
-      <app-input-file  formControlName="avatar"></app-input-file>
+
+      <mat-label class="input-wrapper">
+        User name
+        <mat-form-field class="example-full-width input">
+          <input type="text" matInput formControlName="name" placeholder="Gloria / Ivan / other">
+        </mat-form-field>
+      </mat-label>
 
       <mat-label class="input-wrapper">
         Work Email
