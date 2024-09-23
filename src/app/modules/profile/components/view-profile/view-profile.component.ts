@@ -3,6 +3,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 
 import { AuthService } from "@shared/services/auth.service";
 import { InputFileComponent } from "@shared/components/input-file/input-file.component";
+import { MatDivider } from "@angular/material/divider";
 
 @Component({
   selector: 'app-view-profile',
@@ -10,6 +11,7 @@ import { InputFileComponent } from "@shared/components/input-file/input-file.com
   imports: [
     ReactiveFormsModule,
     InputFileComponent,
+    MatDivider,
   ],
   templateUrl: './view-profile.component.html',
   styleUrl: './view-profile.component.scss',

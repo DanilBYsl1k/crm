@@ -1,7 +1,7 @@
 @import "variables/colors";
 @import "materials/index";
 @import "button/button";
-
+@import "themes-colors/index";
 * {
   box-sizing: border-box;
 }
@@ -108,5 +108,8 @@ a, li {
 
 .header-widget {
   margin-top: 15px;
+}
 
+.more-padding-divider {
+  margin: 8px 0 !important;
 }

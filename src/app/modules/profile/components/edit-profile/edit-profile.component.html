@@ -2,7 +2,7 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class="edit-profile__grid">
       <div class="edit-profile__img">
-        <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
+        <img [src]="user().avatar?.file_path || '/assets/icons/user.svg'" alt="avatar">
         <app-input-file  formControlName="avatar"></app-input-file>
 
       </div>

@@ -62,6 +62,8 @@ export class AuthService {
 
   public profile(): Observable<{ result: UserInterface }> {
     return this.http.get<{ result: UserInterface }>('v1/profile').pipe(
+      take(1),
+
       tap(({ result }) => {
         this.isAuth.set(true);
         this.user.set(result);

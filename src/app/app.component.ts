@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HttpClientModule } from "@angular/common/http";
 import { CommonModule } from "@angular/common";
@@ -9,6 +9,7 @@ import { MainComponent } from "@shared/layout/main/main.component";
 import { NavBarComponent } from "@shared/layout/nav-bar/nav-bar.component";
 import { AuthService } from "@shared/services/auth.service";
 import { PreloaderComponent } from "@shared/components/preloader/preloader.component";
+import { ThemeService } from "@core/services/theme.service";
 
 @Component({
   selector: 'app-root',
@@ -27,9 +28,17 @@ import { PreloaderComponent } from "@shared/components/preloader/preloader.compo
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-  isAuth = this.authService.isAuth;
+export class AppComponent implements OnInit{
   $profile = this.authService.profile();
 
-  constructor(private authService: AuthService) {}
+  isAuth = this.authService.isAuth;
+  pallet = this.themeService.palletComp;
+  constructor(
+    private authService: AuthService,
+    private themeService: ThemeService,
+  ) {}
+
+  ngOnInit() {
+    // this.themeService.checkPallet();
+  }
 }

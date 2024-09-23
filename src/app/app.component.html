@@ -1,5 +1,5 @@
 @defer (when $profile | async) {
-  <div class="app-wrapper">
+  <div class="app-wrapper" [class]="pallet()">
     @if (isAuth()){
       <div class="nav-content">
         <app-nav-bar></app-nav-bar>
@@ -7,7 +7,6 @@
     }
     <div class="main-content-wrapper">
       <app-header></app-header>
-
       <app-main>
         <router-outlet></router-outlet>
       </app-main>

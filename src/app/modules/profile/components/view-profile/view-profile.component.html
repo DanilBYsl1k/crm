@@ -1,28 +1,36 @@
 <div class="view-profile">
   <h1>Profile</h1>
+  <mat-divider class="more-padding-divider"></mat-divider>
+
   <div class="view-profile__img-wrapper">
     <h3>Personal avatar</h3>
     <div class="view-profile__img">
 
-      <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
+      <img [src]="user().avatar?.file_path || '/assets/icons/user.svg'" alt="avatar">
     </div>
 
   </div>
+  <mat-divider class="more-padding-divider"></mat-divider>
   <div>
     <h3>Personal info</h3>
-    <div>
-      <p>
+    <mat-divider class="more-padding-divider"></mat-divider>
+
+    <ul>
+      <li>
         Email: {{ user().email }}
-      </p>
-      <p>
+      </li>
+      <mat-divider class="more-padding-divider"></mat-divider>
+      <li>
         Company: {{ user().company }}
-      </p>
-      <p>
+      </li>
+      <mat-divider class="more-padding-divider"></mat-divider>
+      <li>
         Phone: {{ user().phone }}
-      </p>
-      <p>
+      </li>
+      <mat-divider class="more-padding-divider"></mat-divider>
+      <li>
         Role: {{ user().role }}
-      </p>
-    </div>
+      </li>
+    </ul>
   </div>
 </div>

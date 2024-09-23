@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ProfileService } from "@shared/services/profile.service";
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,14 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit{
 
+  constructor(private profileService: ProfileService) {}
+
+  ngOnInit() {
+  }
+
+  add() {
+    this.profileService.addAccount({}).subscribe()
+  }
 }

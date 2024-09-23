@@ -11,7 +11,7 @@
           <li [matMenuTriggerFor]="menu">
             <a class="profile-link">
               <div class="header__avatar-user">
-                <img [src]="user().avatar.file_path || '/assets/icons/user.svg'" alt="avatar">
+                <img [src]="user().avatar?.file_path || '/assets/icons/user.svg'" alt="avatar">
               </div>
               <span class="profile-link-name">
                 @if (user()) {
@@ -29,7 +29,7 @@
               <mat-icon>remove_red_eye</mat-icon>
               <span>View profile</span>
             </button>
-            <button mat-menu-item routerLink="/profile/view">
+            <button mat-menu-item routerLink="/profile/settings">
               <mat-icon>settings_applications</mat-icon>
               <span>Setting</span>
             </button>
