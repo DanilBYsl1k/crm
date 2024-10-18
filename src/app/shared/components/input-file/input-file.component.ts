@@ -37,7 +37,10 @@ export class InputFileComponent implements ControlValueAccessor {
     this.onChange(val)
   }
 
-  uploadImg({ target }: any) {
+  uploadImg(event: Event) {
+
+    let target = event.target as HTMLInputElement;
+    console.log(target.files)
     if (target.files && target.files.length > 0) {
       const files = target.files;
       const firstFile = files[0];
@@ -45,6 +48,15 @@ export class InputFileComponent implements ControlValueAccessor {
       this.onChange(firstFile)
     } else {
       this.onChange(null);
+    }
+  }
+
+  public uploadImgArea(event: DragEvent) {
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.onChange(files[0]);
+    } else {
+      this.onChange(null); // Если файлов нет, передаем null
     }
   }
 }

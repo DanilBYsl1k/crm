@@ -1,9 +1,9 @@
 <div class="edit-profile">
   <form [formGroup]="form" (ngSubmit)="onSubmit()" >
     <div class="edit-profile__grid">
-      <div class="edit-profile__img">
-        <img [src]="user().avatar?.file_path || '/assets/icons/user.svg'" alt="avatar">
-        <app-input-file  formControlName="avatar"></app-input-file>
+      <div appDragDrop (drop)="fileInput.uploadImgArea($event)"  class="edit-profile__img">
+        <img loading="lazy" [src]="user().avatar?.file_path || '/assets/icons/user.svg'" alt="avatar">
+        <app-input-file  #fileInput formControlName="avatar"></app-input-file>
 
       </div>
 
@@ -31,7 +31,7 @@
       <mat-label class="input-wrapper">
         Phone
         <mat-form-field class="example-full-width input">
-          <input type="email" matInput formControlName="phone" placeholder="Ex. pat@example.com">
+          <input type="email" matInput formControlName="phone" placeholder="+1488228">
         </mat-form-field>
       </mat-label>
 
@@ -47,6 +47,5 @@
       <button mat-flat-button [disabled]="form.invalid"   class="mat-primary button" mat-button>Submit</button>
     </div>
   </form>
-
 
 </div>

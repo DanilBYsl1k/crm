@@ -11,6 +11,9 @@
     .mat-mdc-form-field-infix {
       padding: 15px 0;
       min-height: unset;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .mdc-line-ripple {

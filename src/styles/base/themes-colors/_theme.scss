@@ -1,0 +1,9 @@
+@import "variables/colors";
+
+@each $theme, $color in $themes {
+  .theme-#{$theme} {
+    background: $color;
+    //color: ;
+    //color: invert($color);
+  }
+}

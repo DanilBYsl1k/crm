@@ -4,6 +4,7 @@ import { authRoutes } from "@modules/auth/auth.routes";
 import { authGuard } from "@core/guards/auth.guard";
 import { dashboardRoutes } from "@modules/dashboard/dashboard.routes";
 import { profileRoutes } from "@modules/profile/profile.routes";
+import { userRoutes } from "@modules/users/users.routes";
 
 export const routes: Routes = [
   {
@@ -41,11 +42,11 @@ export const routes: Routes = [
   //   children: authRoutes,
   // },
 
-  // {
-  //   path: 'users',
-  //   loadComponent: ()=> import('@modules/dashboard/dashboard.component').then(c => c.DashboardComponent),
-  //   children: authRoutes,
-  // },
+  {
+    path: 'users',
+    loadComponent: ()=> import('@modules/users/users.component').then(c => c.UsersComponent),
+    children: userRoutes,
+  },
   {
     path: '**',
     loadComponent: () => import('@modules/error-page/error-page.component').then(c => c.ErrorPageComponent),

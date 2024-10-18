@@ -1,0 +1,15 @@
+<div class="settings">
+  <div>
+    <h3>Color schema</h3>
+    <ul class="settings__color-palette-list">
+      @for (pallet of colorPalette(); track  pallet.name) {
+        <li class="settings__color-palette-el"
+            (click)="this.activePallet = pallet; setPalette(pallet.name)"
+            [class.active]="this.activePallet === pallet"
+            [style.background]="pallet.color">
+        </li>
+      }
+    </ul>
+  </div>
+
+</div>

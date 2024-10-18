@@ -1,0 +1,24 @@
+.settings {
+
+  &__color-palette-list {
+    display: flex;
+    gap: 10px;
+  }
+
+  &__color-palette-el {
+    padding: 15px;
+    border-radius: 10px;
+    border: 3px solid white;
+    transition: 0.1s ease;
+    cursor: pointer;
+    &:hover {
+      outline: rgb(67, 67, 67) 3px solid;
+    }
+  }
+
+  .active {
+    outline: 2px #000000 solid;
+    opacity: 0.5;
+  }
+}
+

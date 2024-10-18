@@ -1,0 +1,87 @@
+@import "variables/colors";
+
+.users-dashboard {
+
+  &__filtering-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    .addition-params {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .users-dashboard-input {
+      display: flex;
+      align-items: center;
+      border: 1px solid $aqua-grey;
+      padding: 5px 10px;
+      border-radius: 10px;
+
+      input {
+        border: none;
+        outline: none;
+      }
+    }
+  }
+
+  &__table-wrapper {
+    overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  &__table {
+    border-collapse: collapse;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+
+
+    td, th{
+      padding: 8px;
+    }
+  }
+
+  .users-dashboard__table-header {
+    background: $aqua-grey;
+    border-radius: 20px;
+    border-bottom: 1px solid;
+    border-color: inherit;
+
+    th {
+      border-left: 1px ;
+      border-right: 1px;
+      border-bottom: 0;
+      border-top: 0;
+      border-style: solid;
+      border-color: inherit;
+      &:first-child {
+        border-left: none;
+      }
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  .users-dashboard__table-body {
+    background: white;
+
+    td {
+      transition: 0.2s ease;
+      &:hover {
+        background: $light-grey;
+      }
+    }
+  }
+
+  .img-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+
+  }
+}

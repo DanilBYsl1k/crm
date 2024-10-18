@@ -10,13 +10,17 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
 
     catchError(({status, error, message }: HttpErrorResponse) => {
-      if (error || message) {
-        const errorMsg =  error.error ? error.error : error.message
-        snackBar(errorMsg);
-      }
 
-      if(status >= 500) {
-        snackBar('something went wrong');
+      switch (status) {
+        case 404:
+          if (error || message) {
+            const errorMsg =  error.error ? error.error : error.message
+            snackBar(errorMsg);
+          }
+
+          if(status >= 500) {
+            snackBar('something went wrong');
+          }
       }
 
       return throwError(() => error);

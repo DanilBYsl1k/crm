@@ -8,7 +8,9 @@
       <ul class="nav-bar__route-list">
         <li routerLink="dashboard"><a><mat-icon svgIcon="grid"></mat-icon> Dashboard</a></li>
         @if(user().role === 'admin' ) {
-          <li><a><mat-icon svgIcon="user"></mat-icon>Accounts</a></li>
+          <li routerLink="users">
+            <a><mat-icon svgIcon="user"></mat-icon>Accounts</a>
+          </li>
         }
       </ul>
     </nav>

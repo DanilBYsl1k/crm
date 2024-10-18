@@ -2,15 +2,17 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatError, MatFormField, MatLabel } from "@angular/material/form-field";
 import { MatInput } from "@angular/material/input";
+import { Subscription } from "rxjs";
+import { MatButton } from "@angular/material/button";
 
 import { ValidationFunctions } from "@shared/validations/validation-functions";
 import { AllowedFileTypesEnum } from "@shared/enums/allowed-file-types.enum";
 import { AuthService } from "@shared/services/auth.service";
 import { ProfileService } from "@shared/services/profile.service";
 import { InputFileComponent } from "@shared/components/input-file/input-file.component";
-import { MatButton } from "@angular/material/button";
-import { Subscription } from "rxjs";
 import { UserInterface } from "@shared/interface/user.interface";
+import { JsonPipe } from "@angular/common";
+import { DragDropDirective } from "@shared/directive/drag-drop.directive";
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,7 +24,9 @@ import { UserInterface } from "@shared/interface/user.interface";
     MatFormField,
     MatInput,
     MatLabel,
-    MatButton
+    MatButton,
+    JsonPipe,
+    DragDropDirective
   ],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.scss',
@@ -41,19 +45,7 @@ export class EditProfileComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
     this.initForm();
-
-    this.form.controls['avatar'].valueChanges.subscribe((file) => {
-      const reader = new FileReader();
-      if (file.type === AllowedFileTypesEnum.PNG || file.type === AllowedFileTypesEnum.JPEG) {
-
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          this.user.update((value) => {
-            return { ...value,  avatar: { ...value.avatar, file_path: reader.result } }
-          });
-        }
-      }
-    })
+    this.avatarControl();
   }
 
   ngOnDestroy(): void {
@@ -90,5 +82,20 @@ export class EditProfileComponent implements OnInit, OnDestroy{
     //         ValidationFunctions.imageType([AllowedFileTypesEnum.JPEG,AllowedFileTypesEnum.PNG])
     //       ]
     this.form.patchValue(this.user())
+  }
+
+  private avatarControl() {
+    this.form.controls['avatar'].valueChanges.subscribe((file) => {
+      const reader = new FileReader();
+      if (file.type === AllowedFileTypesEnum.PNG || file.type === AllowedFileTypesEnum.JPEG) {
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          this.user.update((value) => {
+            return { ...value,  avatar: { ...value.avatar, file_path: reader.result } }
+          });
+        }
+      }
+    })
   }
 }
