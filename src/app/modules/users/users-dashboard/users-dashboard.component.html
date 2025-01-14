@@ -46,12 +46,12 @@
             <td>{{ user.role }}</td>
             <td>{{ user.email }}</td>
             <td>+{{ user.phone }}</td>
-            <td>
+            <td class="edit-td">
               <button [matMenuTriggerFor]="actionMenu" mat-icon-button>
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #actionMenu="matMenu" yPosition="below" class="header-widget">
-                <a mat-menu-item routerLink="/users/edit">
+                <a mat-menu-item [routerLink]="['/users/edit', user.email]">
                   <mat-icon>create</mat-icon>
                   <span>Edit profile</span>
                 </a>
